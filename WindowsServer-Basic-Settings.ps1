@@ -1,8 +1,12 @@
 ﻿Set-TimeZone -id "Eastern Standard Time"
-Add-WindowsFeature -Name Telnet-Client
-Get-ScheduledTask -TaskName ServerManager | Disable-ScheduledTask -Verbose
+New-NetFirewallRule -DisplayName “ICMPv4” -Direction Inbound -Action Allow -Protocol icmpv4 -Enabled True  #Allow ping into this system
+Add-WindowsFeature -Name Telnet-Client  #Install Telnet client
+
+#Disable server manager from prompting at start
+Get-ScheduledTask -TaskName ServerManager | Disable-ScheduledTask -Verbose 
 reg add "HKLM\SOFTWARE\Microsoft\ServerManager" /v DoNotOpenServerManagerAtLogon /t REG_DWORD /d 1 /f
 reg add "HKCU\SOFTWARE\Microsoft\ServerManager" /v CheckedUnattendLaunchSetting /t REG_DWORD /d 1 /f
+
 #reg add "HKLM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
 #Enable-NetFirewallRule -DisplayGroup “Remote Desktop”
 Set-ItemProperty -Path ‘HKLM:\System\CurrentControlSet\Control\Terminal Server’-name “fDenyTSConnections” -Value 0
