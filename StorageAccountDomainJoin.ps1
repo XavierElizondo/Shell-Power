@@ -1,6 +1,8 @@
 #############################################################################################################################################
 Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
 .\CopyToPSPath.ps1 
+
+Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
 Import-Module -Name AzFilesHybrid
 
 $TenantId = ""
