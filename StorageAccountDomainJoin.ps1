@@ -1,8 +1,13 @@
 #############################################################################################################################################
 Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
+
+# Install Azure CLI if not already
+Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
+Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
+
+#cd to the  extracted AzureFilesHybrid folder 
 .\CopyToPSPath.ps1 
 
-Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
 Import-Module -Name AzFilesHybrid
 
 $TenantId = ""
@@ -12,14 +17,15 @@ $StorageAccountName = ""
 $Credentials = Get-Credential
 $EncryptionType = "AES256"
 $OuDistinguishedName = "<ou-distinguishedname-here>"
+$DomainAccountType = "ComputerAccount|ServiceLogonAccount"
 
 Connect-AzAccount -Credential $Credentials -Tenant $TenantId -Subscription $subscriptionId -Verbose
 Select-AzSubscription -SubscriptionId $subscriptionId
-Join-AzStorageAccountForAuth -ResourceGroupName $ResourceGroupName -name $StorageAccountName -DomainAccountType "ComputerAccount" -EncryptionType $EncryptionType
+Join-AzStorageAccountForAuth -ResourceGroupName $ResourceGroupName -name $StorageAccountName -DomainAccountType $DomainAccountType -EncryptionType $EncryptionType
 
-#Run the below under CMD NOT PS
+#Run the below under (not elevated) CMD NOT PS
 cmd
-net use x: \\storageaccountname.file.core.windows.net\SharedFolder /user:Azure\<storageaccountname> "enter-sa-key-here"
+net use x: \\storageaccountname.file.core.windows.net\<AzureFilesShareName> /user:Azure\<storageaccountname> "enter-sa-key-here"
 
 icacls x: /grant john_admin@domain.com:(M)
 icacls x: /grant "Creator Owner":(OI)(CI)(IO)(M)
