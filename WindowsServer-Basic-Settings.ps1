@@ -1,6 +1,11 @@
 ﻿Set-TimeZone -id "Eastern Standard Time"
 New-NetFirewallRule -DisplayName “ICMPv4” -Direction Inbound -Action Allow -Protocol icmpv4 -Enabled True  #Allow ping into this system
 Add-WindowsFeature -Name Telnet-Client  #Install Telnet client
+#netsh advfirewall firewall add rule name="Custom-ICMP Allow incoming V4 echo request" protocol=icmpv4:8,any dir=in action=allow
+New-NetFirewallRule -DisplayName "Custom-ALLOW SQL-Service" -Direction inbound -Profile Any -Action Allow -LocalPort 1433 -Protocol TCP
+New-NetFirewallRule -DisplayName "Custom Allow inbound SQL DB mirroring" -Direction inbound -Profile Any -Action Allow -LocalPort 5022 -Protocol TCP
+New-NetFirewallRule -DisplayName "Custom Allow inbound ICMPv4" -Direction Inbound -Profile Any -Protocol ICMPv4 -IcmpType 8 -action Allow
+
 
 #Disable server manager from prompting at start
 Get-ScheduledTask -TaskName ServerManager | Disable-ScheduledTask -Verbose 
