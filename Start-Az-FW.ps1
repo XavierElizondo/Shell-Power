@@ -68,3 +68,27 @@ $vnet = Get-AzVirtualNetwork -ResourceGroupName $firewallRG -Name "vnet-connecti
 $pip = Get-AzPublicIpAddress -ResourceGroupName $firewallRG -Name "pip-AzFW-HubEastUS"
 $firewall.Allocate($vnet, $pip)
 $firewall | Set-AzFirewall
+
+
+
+
+
+
+# // AIRS Start FW in vWAN
+$firewallRG = "RG-Hub-WestUS2"
+$firewallName = "AzureFirewall_vhub-lab-westus2"
+$subID = "1b233659-609f-49c0-bf59-f06289eb96e1"  #MS-XE-CSA-AIRS
+Set-AzContext -subscriptionId $subID
+$virtualhub = get-azvirtualhub -ResourceGroupName RG-Hub-WestUS2 -name vhub-lab-westus2
+$firewall = Get-AzFirewall -Name "AzureFirewall_vhub-lab-westus2" -ResourceGroupName "RG-Hub-WestUS2"
+$firewall.Allocate($virtualhub.Id)
+$firewall | Set-AzFirewall
+
+# // AIRS STOP FW in vWAN
+$firewallRG = "RG-Hub-WestUS2"
+$firewallName = "AzureFirewall_vhub-lab-westus2"
+$subID = "1b233659-609f-49c0-bf59-f06289eb96e1"  #MS-XE-CSA-AIRS
+Set-AzContext -subscriptionId $subID
+$firewall = Get-AzFirewall -Name "AzureFirewall_vhub-lab-westus2" -ResourceGroupName "RG-Hub-WestUS2"
+$firewall.Deallocate()
+$firewall | Set-AzFirewall

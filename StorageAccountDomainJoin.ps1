@@ -3,7 +3,6 @@ Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
 
 # Install Azure CLI if not already
 Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
-Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
 
 #cd to the  extracted AzureFilesHybrid folder 
 .\CopyToPSPath.ps1 
@@ -24,8 +23,7 @@ Select-AzSubscription -SubscriptionId $subscriptionId
 Join-AzStorageAccountForAuth -ResourceGroupName $ResourceGroupName -name $StorageAccountName -DomainAccountType $DomainAccountType -EncryptionType $EncryptionType
 
 #Run the below under (not elevated) CMD NOT PS
-cmd
-net use x: \\storageaccountname.file.core.windows.net\<AzureFilesShareName> /user:Azure\<storageaccountname> "enter-sa-key-here"
+net use x: \\<storageaccountname>.file.core.windows.net\<AzureFilesShareName> /user:Azure\<storageaccountname> "enter-sa-key-here"
 
 icacls x: /grant john_admin@domain.com:(M)
 icacls x: /grant "Creator Owner":(OI)(CI)(IO)(M)
@@ -33,7 +31,7 @@ icacls x: /remove "Authenticated Users"
 icacls x: /remove "Builtin\Users"
 
 #Probe connectivity to storage account
-Test-NetConnection -computer name storageaccount.file.core.windows.net -Port 445 -InformationLevel Detailed
+Test-NetConnection -computer name <storageaccount-name>.file.core.windows.net -Port 445 -InformationLevel Detailed
 
 
 #################################################### Original script #########################################################################################
