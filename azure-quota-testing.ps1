@@ -21,7 +21,7 @@ Write-Output "$($Usage.Name.LocalizedValue): You have consumed Percentage: $($US
 
 #Working:
 
-$QuotaThreshold = 
+$QuotaPercentageThreshold = "5"
 
 $Location = 'East US'
 $VMSize = 'Standard_B2ms'
@@ -30,6 +30,6 @@ $VMFamily = ($SKU | where Name -eq $VMSize | select -Property Family).Family
 $Usage = Get-AzVMUsage -Location $Location | Where-Object { $_.Name.Value -eq $VMFamily } | Select-Object @{label="Name";expression={$_.name.LocalizedValue}},currentvalue,limit, @{label="PercentageUsed";expression={[math]::Round(($_.currentvalue/$_.limit)*100,1)}}
 Write-Output "$($Usage.Name.LocalizedValue): You have consumed Percentage: $($USage.PercentageUsed)% | $($Usage.CurrentValue) /$($Usage.Limit) of available quota"
 
-if ($($USage.PercentageUsed) -gt 8) {
+if ($($USage.PercentageUsed) -gt $QuotaPercentageThreshold) {
     Write-Output "$($Usage.Name.LocalizedValue): You have consumed Percentage: $($USage.PercentageUsed)% | $($Usage.CurrentValue) /$($Usage.Limit) of available quota"
 }
