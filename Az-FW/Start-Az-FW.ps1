@@ -92,3 +92,18 @@ Set-AzContext -subscriptionId $subID
 $firewall = Get-AzFirewall -Name "AzureFirewall_vhub-lab-westus2" -ResourceGroupName "RG-Hub-WestUS2"
 $firewall.Deallocate()
 $firewall | Set-AzFirewall
+
+
+$firewallRG = "CTS-AUE-PRD-BICEP-VWAN"
+$firewallName = "AzureFirewall_AUE-Hub"
+$subID = "af3717f4-48d1-42d5-8b79-453a28496737"  #MS-XE-CSA-AIRS
+Set-AzContext -subscriptionId $subID
+$firewall = Get-AzFirewall -Name $firewallName -ResourceGroupName $firewallRG
+
+# stop 
+$firewall.Deallocate()
+$firewall | Set-AzFirewall
+
+# start
+$firewall.Allocate($virtualhub.Id)
+$firewall | Set-AzFirewall
