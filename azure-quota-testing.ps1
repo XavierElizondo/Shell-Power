@@ -31,5 +31,8 @@ $Usage = Get-AzVMUsage -Location $Location | Where-Object { $_.Name.Value -eq $V
 Write-Output "$($Usage.Name.LocalizedValue): You have consumed Percentage: $($USage.PercentageUsed)% | $($Usage.CurrentValue) /$($Usage.Limit) of available quota"
 
 if ($($USage.PercentageUsed) -gt $QuotaPercentageThreshold) {
-    Write-Output "$($Usage.Name.LocalizedValue): You have consumed Percentage: $($USage.PercentageUsed)% | $($Usage.CurrentValue) /$($Usage.Limit) of available quota"
+    Write-Output "Create support case code below"
+}
+else {
+    Write-Output "Nothing to do here, exiting"
 }
