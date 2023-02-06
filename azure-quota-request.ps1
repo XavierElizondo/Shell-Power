@@ -63,12 +63,12 @@ Write-Output "$($Usage.Name.LocalizedValue): You have consumed Percentage: $($US
 if ($($USage.PercentageUsed) -gt $QuotaPercentageThreshold) {
     Write-Output "Creating support case"
     New-AzSupportTicket `
-        -Name "$TicketName" `
-        -Title "$TicketTitle" `
-        -Description "$TicketDescription" `
-        -Severity "$Severity" `
-        -ProblemClassificationId "/providers/Microsoft.Support/services/$ServiceNameGUID/problemClassifications/$ProblemClassificationGUID" `
-        -QuotaTicketDetail @{QuotaChangeRequestVersion = "1.0" ; QuotaChangeRequests = (@{Region = "$Location"; Payload = "{`"VMFamily`":`"$VMSize`",`"NewLimit`":$NewLimit}"})} -CustomerContactDetail @{FirstName = "$ContactFirstName" ; LastName = "$ContactLastName" ; PreferredTimeZone = "$TimeZone" ; PreferredSupportLanguage = "$Language" ; Country = "$Country" ; PreferredContactMethod = "Email" ; PrimaryEmailAddress = "$PrimaryEmail" ; AdditionalEmailAddress = "$AdditionalEmail"}
+    -Name "$TicketName" `
+    -Title "$TicketTitle" `
+    -Description "$TicketDescription" `
+    -Severity "$Severity" `
+    -ProblemClassificationId "/providers/Microsoft.Support/services/$ServiceNameGUID/problemClassifications/$ProblemClassificationGUID" `
+    -QuotaTicketDetail @{QuotaChangeRequestVersion = "1.0" ; QuotaChangeRequests = (@{Region = "$Location"; Payload = "{`"VMFamily`":`"$VMSize`",`"NewLimit`":$NewLimit}"})} -CustomerContactDetail @{FirstName = "$ContactFirstName" ; LastName = "$ContactLastName" ; PreferredTimeZone = "$TimeZone" ; PreferredSupportLanguage = "$Language" ; Country = "$Country" ; PreferredContactMethod = "Email" ; PrimaryEmailAddress = "$PrimaryEmail" ; additionalEmailAddresses = "$AdditionalEmail"}
 }
 else {
     Write-Output "Nothing to do here, exiting"
