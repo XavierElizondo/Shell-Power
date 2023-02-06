@@ -1,5 +1,5 @@
 
-$QuotaPercentageThreshold = "5"
+$QuotaPercentageThreshold = "80"
 $NewLimitIncrement = "25"
 $Location = 'EastUS'
 $VMSize = 'Standard_B2ms'
@@ -436,7 +436,7 @@ ecb0610e-9f64-003f-89a3-a24c01dc2706 Traffic Manager
 
 
 
-<#
+
 $Location = 'East US'
 $VMSize = 'Standard_B2ms'
 $SKU = Get-AzComputeResourceSku -Location $Location | where ResourceType -eq "virtualMachines" | select Name,Family
@@ -452,7 +452,7 @@ Get-AzVMUsage -Location $Location | Select-Object @{Name = 'Name';Expression = {
 
 Write-Output "$($Usage.Name.LocalizedValue): You have consumed Percentage: $($USage.PercentageUsed)% | $($Usage.CurrentValue) /$($Usage.Limit)  / available quota"
 
-#>
+
 
 
 #>
