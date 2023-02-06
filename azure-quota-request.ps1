@@ -45,8 +45,8 @@ $Language = "en-us"
 $Country = "USA"
 $PrimaryEmail = "mtyson@boxing.com"
 $AdditionalEmail = "mjordan@nba.com"
-$ServiceNameGUID = "06bfd9d3-516b-d5c6-5802-169c800dec89" 
-$ProblemClassificationGUID = "599a339a-a959-d783-24fc-81a42d3fd5fb"
+$ServiceNameGUID = "06bfd9d3-516b-d5c6-5802-169c800dec89" #06bfd9d3-516b-d5c6-5802-169c800dec89 Service and subscription limits (quotas)
+$ProblemClassificationGUID = "599a339a-a959-d783-24fc-81a42d3fd5fb" #599a339a-a959-d783-24fc-81a42d3fd5fb Other Requests
 
 Set-AzContext -SubscriptionId $SubscriptionID
 
