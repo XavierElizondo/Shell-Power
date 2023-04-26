@@ -37,7 +37,7 @@
           "operations": [
             {
               "operation": "addOrReplace",
-              "path": "/privateEndpointNetworkPolicies",
+              "field": "Microsoft.Network/virtualNetworks/subnets/privateEndpointNetworkPolicies",
               "value": "Enabled"
             }
           ]
